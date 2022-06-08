@@ -1,60 +1,20 @@
 WSL2 를 이용하여 window에서 Ubuntu 설치를 마쳤다고 가정하고 시작합니다.
+http://soopsaram.com/lfs/ 님의 블로그를 상당히 많이 참고하였습니다.. 한국어 너무 짜릿해요.. 감사합니다.
 
-ls/ 를 쳤을시 나오는 
+일단 기본적인 linux 명령어를 정리해야할꺼 같다.
+
+<linux 색깔의 의미>
+파란색 - 디렉토리
+초록색 - 실행 파일
+빨간색 - 압축 파일
+하늘색 - 심볼릭 파일 (링크 파일)
+회 색 - 일반 파일
+
+<기본 명령어> (내가 몰랐던 명령어만 기록합니다)
+cd $변수명 - 변수에 저장된 경로로 이동합니다.
+cd ~  - 사용자의 홈 디렉터리로 이동
+cd -  - 이전경로로 이동
 
 
 Cat > version-check.sh << "EOF"
-#!/bin/bash
-# Simple script to list version numbers of critical development tools
-
-export LC_ALL=C
-bash --version | head -n1 | cut -d" " -f2-4
-echo "/bin/sh -> `readlink -f /bin/sh`"
-echo -n "Binutils: "; ld --version | head -n1 | cut -d" " -f3-
-bison --version | head -n1
-
-if [ -h /usr/bin/yacc ]; then
-  echo "/usr/bin/yacc -> `readlink -f /usr/bin/yacc`";
-elif [ -x /usr/bin/yacc ]; then
-  echo yacc is `/usr/bin/yacc --version | head -n1`
-else
-  echo "yacc not found" 
-fi
-
-bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f1,6-
-echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
-diff --version | head -n1
-find --version | head -n1
-gawk --version | head -n1
-
-if [ -h /usr/bin/awk ]; then
-  echo "/usr/bin/awk -> `readlink -f /usr/bin/awk`";
-elif [ -x /usr/bin/awk ]; then
-  echo yacc is `/usr/bin/awk --version | head -n1`
-else 
-  echo "awk not found" 
-fi
-
-gcc --version | head -n1
-g++ --version | head -n1
-ldd --version | head -n1 | cut -d" " -f2-  # glibc version
-grep --version | head -n1
-gzip --version | head -n1
-cat /proc/version
-m4 --version | head -n1
-make --version | head -n1
-patch --version | head -n1
-echo Perl `perl -V:version`
-sed --version | head -n1
-tar --version | head -n1
-makeinfo --version | head -n1
-xz --version | head -n1
-
-echo 'main(){}' > dummy.c && g++ -o dummy dummy.c
-if [ -x dummy ]
-  then echo "g++ compilation OK";
-  else echo "g++ compilation failed"; fi
-rm -f dummy.c dummy
-EOF
-
-bash version-check.sh
+(version-check.sh 파일을 만든 후 text를 치게 되는데 EOF를 만날때까지 코드를 작성한다는 의미라고 생각하면 된다 즉 코드를 작성한 뒤 EOF 를 치면 파일이 만들어지고 나가진다)
